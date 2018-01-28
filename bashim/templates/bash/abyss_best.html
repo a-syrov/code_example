@@ -1,0 +1,37 @@
+{% extends "bash/index.html" %}
+{% load staticfiles %}
+
+{% block pagination %}
+<div class="container">
+    <div class="row">
+        <div class="pagination">
+            <nav aria-label="pagination">
+                <ul class="pagination pagination">
+                    {% if quotes.has_previous %}
+                    <li>
+                        <a href="{% url 'abyssbest' %}?page={{ quotes.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a>
+                    </li>
+                    {% endif %}
+                    <li><a href="{% url 'abyssbest' %}?page=1">Первая</a></li>
+                    {% for pg in page_range %}
+                        {% if quotes.number == pg %}
+                            <li class="active"><a href="/{% url 'abyssbest' %}?page={{pg}}">{{pg}}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'abyssbest' %}?page={{pg}}">{{pg}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="{% url 'abyssbest' %}?page={{ quotes.paginator.num_pages }}">Последняя</a></li>
+                    {% if quotes.has_next %}
+                    <li>
+                        <a href="{% url 'abyssbest' %}?page={{ quotes.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <span class="current">
+                    Страница {{ quotes.number }} из {{ quotes.paginator.num_pages }}.
+                </span>
+            </nav>        
+        </div>
+    </div>
+</div>
+{% endblock pagination %}

@@ -1,0 +1,40 @@
+{% load staticfiles %}
+
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="{% static "css/bootstrap.css" %}">
+    <link rel="stylesheet" href="{% static "css/app.css" %}">
+    <script data-require="jquery@1.10.0" data-semver="1.10.0" src="http://code.jquery.com/jquery-1.10.0.min.js"></script>   
+    <script src="{% static "js/main.js" %}"></script>    
+    <script src="{% static "js/bootstrap.js" %}"></script>
+    
+</head>
+<body>
+
+    {% block oredering %}
+    {% endblock oredering %}
+    
+    {% block nav %}
+    <div class="container-fluid">
+        <nav class="navbar navbar-default navbar-fixed-top">
+          <div class="container">
+            <ul class="nav navbar-nav">
+                <li {% if request.path == '/' %}class="active"{% endif %}><a href="{% url 'bash' %}">Bash-Main</a></li>
+                <li {% if request.path == '/abyssbest/' %}class="active"{% endif %}><a href="{% url 'abyssbest' %}">AbyssBest</a></li>
+                <li {% if request.path == '/bash-utils/' %}class="active"{% endif %}><a href="{% url 'bash_utils' %}">Сервисные утилиты</a></li>
+            </ul>
+          </div>
+        </nav>
+    </div>        
+    {% endblock nav %}
+
+    {% block content %}
+    {% endblock content %}
+
+    {% block pagination %}
+    {% endblock pagination %}
+
+</body>
+</html>

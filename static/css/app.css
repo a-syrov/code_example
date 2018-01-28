@@ -1,0 +1,49 @@
+.container {
+  widows: 1100px;
+  margin: 0 auto;
+}
+
+body {
+  padding-top: 60px;
+}
+
+#category a{
+  padding: 5px 15px;
+}
+
+#body {
+  background-color: #f7f7f7;
+}
+
+#bodys {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+#footer {
+  padding: 20px 0;
+}
+
+a {
+  color: #323232;
+}
+
+a:hover{
+  color: #0b536;
+}
+
+.quote-text {
+  text-align: left;
+}
+
+.quote-text p, .panel-default {
+  margin-bottom: 0;
+}
+
+.panel-body {
+  border: 1px solid #eee;
+}
+
+.quotes {
+  margin-bottom: 20px;
+}

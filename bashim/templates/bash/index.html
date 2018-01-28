@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+{% load staticfiles %}
+
+
+{% block oredering %}
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <form method="post" id="ordering">
+                {% csrf_token %}
+                {{form.as_p}}
+                <input type="submit" value='Сортировать'>
+            </form>                   
+        </div>
+    </div>
+</div>
+{% endblock oredering %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+    {% for quote in quotes %}
+        <div class="col-sm-12 quotes">
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <b class="quote-date">{{quote.date}}</b>
+              </div>    
+            </div>
+            <div class="panel-body">
+                <div class="quote-text {% if quote.comics_image %} col-sm-8 {% endif %}">
+                  {{ quote.text|safe }}
+                </div>
+                {% if quote.comics_image %}
+                <div class="quote-comics-img col-sm-4">
+                  <img src="{{ quote.comics_image.url }}" alt="" class="img-responsive">
+                </div>
+                {% endif %}
+            </div>
+            {% if quote.rating %}
+            <div class="panel-footer">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <span class="quote-rating"><b>Рейтинг: {{ quote.rating|floatformat }}</b></span><br>
+                        <span class="quote-link"><b>Оригинал: <a href="{{ quote.link }}" target="blank">{{ quote.link }}</a></b></span>
+                        {% if quote.comics %}
+                            <span class="quote-comics pull-right"><a href="{{ quote.comics }}" target="blank"><b>>>> Комикс <<< </b></a></span>
+                        {% endif %}
+                    </div>
+                </div>         
+            </div>
+            {% endif %}
+        </div>            
+        <hr>
+    {% endfor %}
+    </div>
+</div>
+{% endblock content %}
+
+
+    
+
+{% block pagination %}
+<div class="container">
+    <div class="row">
+        <div class="pagination">
+            <nav aria-label="pagination">
+                <ul class="pagination pagination">
+                    {% if quotes.has_previous %}
+                    <li>
+                        <a href="{% url 'bash' %}?page={{ quotes.previous_page_number }}" aria-label="Previous"><span aria-hidden="true">«</span></a>
+                    </li>
+                    {% endif %}
+                    <li><a href="{% url 'bash' %}?page=1">Первая</a></li>
+                    {% for pg in page_range %}
+                        {% if quotes.number == pg %}
+                            <li class="active"><a href="/{% url 'bash' %}?page={{pg}}">{{pg}}</a></li>
+                        {% else %}
+                            <li><a href="{% url 'bash' %}?page={{pg}}">{{pg}}</a></li>
+                        {% endif %}
+                    {% endfor %}
+                    <li><a href="{% url 'bash' %}?page={{ quotes.paginator.num_pages }}">Последняя</a></li>
+                    {% if quotes.has_next %}
+                    <li>
+                        <a href="{% url 'bash' %}?page={{ quotes.next_page_number }}" aria-label="Next"><span aria-hidden="true">»</span></a>
+                    </li>
+                    {% endif %}
+                </ul>
+                <span class="current">
+                    Страница {{ quotes.number }} из {{ quotes.paginator.num_pages }}.
+                </span>
+            </nav>        
+        </div>
+    </div>
+</div>
+{% endblock pagination %}
+

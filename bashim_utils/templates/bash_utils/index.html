@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+	<div class="row">
+		<div class="utility">
+			<h2>наполнение из json файлов</h2>
+			<div class="col-sm-12">
+				<h3>Создание записей модели BashQuote из json файла:</h3>
+				<a href="{% url 'create_quotes' %}"><b>Начать</b></a>
+			</div>
+			<div class="col-sm-12">
+				<h3>Создание записей модели BashAbyssQuote из json файла:</h3>			
+				<a href="{% url 'create_quotes_abyss' %}"><b>Начать</b></a>
+			</div>
+			<div class="col-sm-12">
+				<h3>Задать полю is_comics модели BashQuotes значение True если в поле comics указан http адрес:</h3>
+				<a href="{% url 'set_comics' %}"><b>Начать</b></a>
+			</div>
+			<div class="col-sm-12">
+				<h3>Проверить поле rating модели BashQuotes, и если в нем чило 0=- сохранить как float, а если нет - установить значение 1:</h3>
+				<a href="{% url 'set_current_rating' %}"><b>Начать</b></a>
+			</div>
+		</div>
+		<hr>
+		<hr>
+		<div class="utility-online">
+			<hr>
+			<div class="col-sm-12">
+				<h3>Обновить список цитат BashAbyss за последние N-дней:</h3>
+				<form method="POST">
+					{% csrf_token %}
+					{{abyss_form.as_p}}
+					<input type="submit" value="Начать">
+				</form>			
+			</div>
+			<div class="col-sm-12">
+				<h3>Обновить список цитат Bash из последних N-страниц:</h3>
+				<form method="POST">
+					{% csrf_token %}
+					{{bash_form.as_p}}
+					<input type="submit" value="Начать">
+				</form>
+			</div>
+			<div class="col-sm-12">
+				<h3>Для цитат с комиксом установить URL изображения:</h3>
+				<a href="{% url 'set_comics_url' %}"><b>Начать</b></a>
+			</div>
+			<div class="col-sm-12">
+				<h3>Для цитат с комиксом скачать и установить изображения:</h3>
+				<a href="{% url 'set_img_comics_from_url' %}"><b>Начать</b></a>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock content %}
